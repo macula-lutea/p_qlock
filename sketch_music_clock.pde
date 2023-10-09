@@ -6,8 +6,8 @@ PImage []scenes = new PImage[MAXSCENES];
 
 void setup() {
   size(720, 720);
-  scenes[0] = loadImage("a.jpg");
-  scenes[1] = loadImage("a.jpg");
+  scenes[0] = loadImage("a.png");
+  scenes[1] = loadImage("a.png");
   minim = new Minim(this);
   player = minim.loadFile("po.mp3");
   player.play();
