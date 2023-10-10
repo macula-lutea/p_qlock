@@ -1,77 +1,77 @@
 import ddf.minim.*;
 Minim minim;
 AudioPlayer player;
-int MAXSCENES = 5;
+AudioMetaData metadata;
+int MAXSCENES = 2;
 PImage []scenes = new PImage[MAXSCENES];
 PFont f;
+int sceneCount = 0;
+
+int RED = #FF0000;
+int GREEN = #00FF00;
+int BLUE = #0000FF;
 
 void setup() {
-  //String[] fontList = PFont.list();
-  //printArray(fontList);
   size(720, 720);
   f = createFont("Futura-Bold", 32);
   textFont(f);
   scenes[0] = loadImage("a.png");
-  scenes[1] = loadImage("a.png");
   minim = new Minim(this);
-  player = minim.loadFile("po.mp3");
+  player = minim.loadFile("fs2.mp3");
   player.play();
-  player.printControls();
+  metadata = player.getMetaData();
   frameRate(1);
 }
+
+String pad() {
+  if (second() < 10) {
+   return "0";
+  }
+  return "";
+}
+
 
 void draw() {
   background(0);
   fill(255);
-  text(" " +hour()+" "+minute()+" "+second()+" ", 275, 360);
-  text("track name here", 275, 400);
+  text(" " +hour()+" "+minute()+" "+pad()+second()+" ", 275, 360);
+  text(metadata.title(), 100, 420);
+
+  if (second() % 10 == 0) {
+    showColor(RED);
+  }
 
   if (second() % 10 == 1) {
-    red();
+    showColor(GREEN);
   }
 
   if (second() % 10 == 2) {
-    green();
+    showColor(BLUE);
   }
 
-  if (second() % 10 == 3) {
-    blue();
-  }
-
-  if (second() % 10 == 5 || second() % 10 == 6 || second() % 10 == 7 || second() % 10 == 8 || second() % 10 == 9 || second() % 10 == 0) {
+  if (second() % 10 == 5 || second() % 10 == 6 || second() % 10 == 7 || second() % 10 == 8 || second() % 10 == 9 ) {
     scene();
   }
 }
 
-void red() {
+void showColor(int c) {
     for(int y = 0; y < height; y++){
       for(int x = 0; x < width; x++){
-        stroke(255, 0, 0);
+        stroke(c);
         point(x, y);
     }
   }
 }
-
-void green() {
-    for(int y = 0; y < height; y++){
-      for(int x = 0; x < width; x++){
-        stroke(0, 255, 0);
-        point(x, y);
-    }
-  }
-}
-
-void blue() {
-    for(int y = 0; y < height; y++){
-      for(int x = 0; x < width; x++){
-        stroke(0, 0, 255);
-        point(x, y);
-    }
-  }
-}
-
-
 
 void scene() {
   background(scenes[0]);
+}
+
+
+void keyPressed()
+{
+  if (player.isPlaying())
+  {
+    player.pause();
+  }
 }
