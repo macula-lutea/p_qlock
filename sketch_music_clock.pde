@@ -3,28 +3,43 @@ Minim minim;
 AudioPlayer player;
 int MAXSCENES = 5;
 PImage []scenes = new PImage[MAXSCENES];
+PFont f;
 
 void setup() {
+  //String[] fontList = PFont.list();
+  //printArray(fontList);
   size(720, 720);
+  f = createFont("Futura-Bold", 32);
+  textFont(f);
   scenes[0] = loadImage("a.png");
   scenes[1] = loadImage("a.png");
   minim = new Minim(this);
   player = minim.loadFile("po.mp3");
   player.play();
   player.printControls();
-  frameRate(10.0);
+  frameRate(1);
 }
 
 void draw() {
   background(0);
-  int pos = 0;
-  pos = player.position() / 1000;
-  if (pos != 0 && pos % 8 == 0) {
+  fill(255);
+  text(" " +hour()+" "+minute()+" "+second()+" ", 275, 360);
+
+  if (second() % 10 == 1 || second() % 10 == 2) {
+    red();
+  }
+  if (second() % 10 == 5 || second() % 10 == 6 || second() % 10 == 7 || second() % 10 == 8 || second() % 10 == 9 || second() % 10 == 0) {
     scene();
   }
-  fill(255);
-  //text("Position: "+pos, 10, 40);
-  text(" " +hour()+" "+minute()+" "+second()+" ", 360, 360);
+}
+
+void red() {
+    for(int y = 0; y < height; y++){
+      for(int x = 0; x < width; x++){
+        stroke(255, 0, 0);
+        point(x, y);
+    }
+  }
 }
 
 
