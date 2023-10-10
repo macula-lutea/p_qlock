@@ -24,10 +24,20 @@ void draw() {
   background(0);
   fill(255);
   text(" " +hour()+" "+minute()+" "+second()+" ", 275, 360);
+  text("track name here", 275, 400);
 
-  if (second() % 10 == 1 || second() % 10 == 2) {
+  if (second() % 10 == 1) {
     red();
   }
+
+  if (second() % 10 == 2) {
+    green();
+  }
+
+  if (second() % 10 == 3) {
+    blue();
+  }
+
   if (second() % 10 == 5 || second() % 10 == 6 || second() % 10 == 7 || second() % 10 == 8 || second() % 10 == 9 || second() % 10 == 0) {
     scene();
   }
@@ -41,6 +51,25 @@ void red() {
     }
   }
 }
+
+void green() {
+    for(int y = 0; y < height; y++){
+      for(int x = 0; x < width; x++){
+        stroke(0, 255, 0);
+        point(x, y);
+    }
+  }
+}
+
+void blue() {
+    for(int y = 0; y < height; y++){
+      for(int x = 0; x < width; x++){
+        stroke(0, 0, 255);
+        point(x, y);
+    }
+  }
+}
+
 
 
 void scene() {
