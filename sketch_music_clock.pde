@@ -6,10 +6,6 @@ AudioMetaData metadata;
 
 PFont f;
 
-int MAXSCENES = 5;
-PImage []scenes = new PImage[MAXSCENES];
-int sceneCount;
-
 void setup() {
   size(720, 720);
   frameRate(2);
@@ -21,22 +17,20 @@ void setup() {
   
   f = createFont("Futura-Bold", 32);
   textFont(f);
-
-  sceneCount = 0;
 }
 
-String pad() {
-  if (second() < 10) {
-   return "0";
+String pad(int i) {
+  if (i < 10) {
+   return "0" + str(i);
   }
-  return "";
+  return str(i);
 }
 
 
 void draw() {
   background(0);
   fill(255);
-  text(" " +hour()+" "+minute()+" "+pad()+second()+" ", 275, 360);
+  text(" " +pad(hour())+" "+pad(minute())+" "+pad(second())+" ", 275, 360);
   text(metadata.title(), 100, 420);
 
   if (second() % 10 == 0 || 
@@ -47,9 +41,8 @@ void draw() {
       second() % 10 == 5 ) {
     particles();
   } else {
-    scene();
+    beams();
   }
-    
 }
 
 void particles() {
@@ -59,10 +52,12 @@ void particles() {
   }
 }
 
-void scene() {
-  background(#000000);
+void beams() {
+  stroke(random(255), random(255), random(255));
+  for (int i = 0; i <= 50; i++) {
+    line(0, 0, random(720), random(720));
+  }
 }
-
 
 void keyPressed()
 {
